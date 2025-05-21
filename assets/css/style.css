@@ -1,0 +1,175 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Lexend", sans-serif;
+	background-color: #3AAFA9
+}
+
+header h1 {
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+	text-align: center;
+	color: #FEFFFF;
+	font-size: 3.2rem;
+	text-transform: uppercase;
+}
+
+/* Tela maxima de tablet */
+@media(max-width: 768px) {
+	header h1 {
+		font-size: 1.6rem;
+	}
+}
+
+.container {
+	max-width: 1320px;
+	margin: 0 auto;
+	padding: 1rem;
+}
+
+.actions {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 1.2rem;
+}
+
+.actions button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 1rem 1.8rem;
+
+	border: none;
+	border-radius: 7px;
+
+	text-align: center;
+	text-decoration: none;
+	font-family: "Lexend", sans-serif;
+	font-size: 20px;
+	color: white;
+
+	background-color: #2B7A78;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+	transition: linear 0.3s;
+
+	cursor: pointer;
+}
+
+.modal {
+	display: none;
+	align-items: center;
+	flex-direction: column;
+
+	margin: 2rem auto;
+
+	width: 60%;
+	max-width: 960px;
+
+	padding: 2rem;
+
+	border-radius: 8px;
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.modal form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.8rem;
+}
+
+.modal form input {}
+
+#initialize {}
+
+
+
+#initialize:hover,
+#initialize1:hover {
+	padding: 16px 32px;
+	font-size: 22px;
+	width: 320px;
+}
+
+#conteudo {
+	color: #DEF2F1;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+#conteudo input[type=number] {
+	width: 60%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	font-family: Lexend;
+}
+
+#conteudo button {
+	background-color: #2B7A78;
+	border: none;
+	color: #FEFFFF;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+	font-size: 1.2rem;
+	transition: linear 0.2s;
+	border-radius: 7px;
+	font-family: Lexend;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+	margin-bottom: 20px;
+}
+
+#conteudo button:hover {
+	color: #DEF1F2;
+}
+
+.distribuicao {
+	color: #17252A;
+	font-size: 1.3rem;
+	font-family: Lexend Semi Bold;
+	padding-bottom: 20px;
+}
+
+
+
+#retornar {
+	background-color: #2B7A78;
+	border: none;
+	color: #FEFFFF;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+	font-size: 1.2rem;
+	transition: linear 0.2s;
+	border-radius: 7px;
+	font-family: Lexend;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+	margin-bottom: 20px;
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+	visibility: hidden;
+}
+
+#retornar:hover {
+	padding: 12px 24px;
+}

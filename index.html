@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+
+	<link href="./assets/css/style.css" type="text/css" rel="stylesheet">
+
+	<title>DiscreteCalc</title>
+</head>
+
+<body>
+	<div class="container">
+
+		<header>
+			<h1>calculadora de variáveis Discretas</h1>
+		</header>
+
+		<main>
+			<div class="actions">
+				<button onclick="modal('binomial')">
+					Distribuição Binomial
+				</button>
+				<button onclick="modal('poisson')">
+					Distribuição Poisson
+				</button>
+			</div>
+
+			<div id="binomial" class="modal" style="display: flex;">
+				<form>
+					<h2>Distribuição Binomial</h2>
+
+					<label for="numberN">Número de Tentativas (n)</label>
+					<input type="number" value="0" id="numberN" name="numberN">
+
+					<label for="numberP">Probabilidade de sucesso (p)</label>
+					<input type="number" value="0" id="numberP" name="numberP">
+
+					<label for="numberX">Número de sucessos desejados (x)</label>
+					<input type="number" value="0" id="numberX" name="numberX">
+
+					<button onclick="calc('binomial')">Calcular</button>
+
+					<p id="resP"></p>
+					<p id="resQ"></p>
+					<p id="resM"></p>
+					<p id="resVar"></p>
+					<p id="resD"></p>
+					<p id="resCV"></p>
+					<p id="resBinomial"></p>
+				</form>
+			</div>
+
+			<div id="poisson" class="modal">
+				<form>
+					<h2>Distribuição Poisson</h2>
+
+					<label for="lambda">Taxa média de eventos (λ)</label>
+					<input type="number" value="0" id="lambda" name="lambda">
+
+					<label for="x1">X</label>
+					<input type="number" value="0" id="x1" name="x1">
+
+					<p>Número de sucessos desejados (x)</p>
+
+					<button onclick="calc('poisson')">Calcular</button>
+
+					<p id="resPoisson"></p>
+				</form>
+			</div>
+		</main>
+	</div>
+
+	<script src="./assets/js/main.js"></script>
+</body>
+
+</html>

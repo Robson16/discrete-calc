@@ -1,36 +1,102 @@
+:root {
+	--white-color: #FEFFFF;
+	--black-color: #000000;
+
+	--primary-color: #3AAFA9;
+	--secondary-color: #2B7A78;
+
+	--text-color: #FEFFFF;
+
+	--background-color: #3AAFA9;
+
+	--shadow-default: 0 4px 20px 0 rgba(42, 128, 144, 0.25), 0 1.5px 6px 0 rgba(0, 0, 0, 0.18);
+	--shadow-interactive: 0 4px 16px rgba(42, 128, 144, 0.22), 0 1.5px 8px rgba(0, 0, 0, 0.16), 0 0.5px 2px rgba(42, 128, 144, 0.10);
+
+	--font-family: "Lexend", sans-serif;
+}
+
+/* Reset básico */
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
+/* Estilos globais de tipografia e corpo */
+body,
+input,
+textarea,
+button {
+	font-family: var(--font-family);
+	font-weight: 400;
+	font-size: 1.2rem;
+}
+
 body {
-	font-family: "Lexend", sans-serif;
-	background-color: #3AAFA9
+	background-color: var(--background-color);
+}
+
+/* Estilos do cabeçalho */
+header {
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+}
+
+header h1,
+header h2 {
+	text-align: center;
+	color: var(--text-color);
 }
 
 header h1 {
-	margin-top: 2rem;
-	margin-bottom: 4rem;
-	text-align: center;
-	color: #FEFFFF;
-	font-size: 3.2rem;
-	text-transform: uppercase;
+	font-size: 2.6rem;
 }
 
-/* Tela maxima de tablet */
-@media(max-width: 768px) {
+/* Media query para cabeçalho em telas menores */
+@media (max-width: 768px) {
 	header h1 {
 		font-size: 1.6rem;
 	}
 }
 
+/* Estilos para botões e inputs de botão/submit */
+button,
+input[type="button"],
+input[type="submit"] {
+	padding: 1.2rem 1.8rem;
+	text-decoration: none;
+	font-weight: 600;
+	color: var(--text-color);
+	border: none;
+	border-radius: 8px;
+	background-color: var(--secondary-color);
+	box-shadow: var(--shadow-interactive);
+	transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	cursor: pointer;
+}
+
+/* Estilos de hover/focus/active para botões e inputs */
+button:hover,
+button:focus,
+button:active,
+input[type="button"]:hover,
+input[type="button"]:focus,
+input[type="button"]:active,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+input[type="submit"]:active {
+	background-color: var(--primary-color);
+	box-shadow: var(--shadow-default);
+}
+
+/* Container de layout */
 .container {
-	max-width: 1320px;
+	max-width: 960px;
 	margin: 0 auto;
 	padding: 1rem;
 }
 
+/* Seção de ações */
 .actions {
 	display: flex;
 	align-items: center;
@@ -40,43 +106,36 @@ header h1 {
 }
 
 .actions button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	padding: 1rem 1.8rem;
-
-	border: none;
-	border-radius: 7px;
-
-	text-align: center;
-	text-decoration: none;
-	font-family: "Lexend", sans-serif;
-	font-size: 20px;
-	color: white;
-
-	background-color: #2B7A78;
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-
-	transition: linear 0.3s;
-
-	cursor: pointer;
+	flex: 1;
 }
 
+/* Media query para botões de ação em telas menores */
+@media (max-width: 768px) {
+	.actions button {
+		/* Ocupa 100% da largura em telas pequenas */
+		flex: 100%;
+	}
+}
+
+/* Estilos do modal */
 .modal {
 	display: none;
-	align-items: center;
 	flex-direction: column;
-
+	align-items: center;
 	margin: 2rem auto;
-
-	width: 60%;
-	max-width: 960px;
-
+	max-width: 540px;
 	padding: 2rem;
-
 	border-radius: 8px;
-	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+	box-shadow: var(--shadow-default);
+	background-color: var(--primary-color);
+}
+
+.modal .title {
+	margin-bottom: 1rem;
+	text-align: center;
+	color: var(--text-color);
+	font-size: 1.4rem;
+	text-transform: uppercase;
 }
 
 .modal form {
@@ -85,91 +144,67 @@ header h1 {
 	align-items: center;
 	justify-content: center;
 	gap: 0.8rem;
-}
-
-.modal form input {}
-
-#initialize {}
-
-
-
-#initialize:hover,
-#initialize1:hover {
-	padding: 16px 32px;
-	font-size: 22px;
-	width: 320px;
-}
-
-#conteudo {
-	color: #DEF2F1;
 	width: 100%;
+}
+
+.modal form label {
+	width: 100%;
+	text-align: left;
+	color: var(--text-color);
+}
+
+.modal form input[type="number"] {
 	display: flex;
-	flex-direction: row;
+	width: 100%;
+	padding: 0.875rem 1.2rem;
+	border: 0;
+	border-radius: 8px;
+	box-shadow: var(--shadow-interactive);
+	color: var(--black-color);
+	background-color: var(--white-color);
+
 }
 
-#conteudo input[type=number] {
-	width: 60%;
-	padding: 12px 20px;
-	margin: 8px 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
-	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-	font-family: Lexend;
+/* Estilos da div de resultados */
+.modal .result {
+	/* Inicia oculto, JS controla a exibição */
+	display: none;
+	width: 100%;
+	margin-top: 1.5rem;
+	padding: 1rem;
+	border-radius: 8px;
+	background-color: var(--secondary-color);
+	box-shadow: var(--shadow-default);
+
+	color: var(--text-color);
+	text-align: left;
+	line-height: 1.6;
 }
 
-#conteudo button {
-	background-color: #2B7A78;
-	border: none;
-	color: #FEFFFF;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	padding: 10px 15px;
-	cursor: pointer;
-	font-size: 1.2rem;
-	transition: linear 0.2s;
-	border-radius: 7px;
-	font-family: Lexend;
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-	margin-bottom: 20px;
+.modal .result p {
+	/* Espaçamento entre os parágrafos de resultado */
+	margin-bottom: 0.5rem;
+	/* Tamanho da fonte dos resultados */
+	font-size: 1rem;
 }
 
-#conteudo button:hover {
-	color: #DEF1F2;
-}
-
-.distribuicao {
-	color: #17252A;
-	font-size: 1.3rem;
-	font-family: Lexend Semi Bold;
-	padding-bottom: 20px;
+.modal .result p:last-child {
+	/* Remove a margem do último parágrafo */
+	margin-bottom: 0;
 }
 
 
-
-#retornar {
-	background-color: #2B7A78;
-	border: none;
-	color: #FEFFFF;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	padding: 10px 15px;
-	cursor: pointer;
-	font-size: 1.2rem;
-	transition: linear 0.2s;
-	border-radius: 7px;
-	font-family: Lexend;
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-	margin-bottom: 20px;
-	position: absolute;
-	bottom: 30px;
-	right: 30px;
-	visibility: hidden;
+/* Botão para fechar modal */
+.closeModal {
+	position: fixed;
+	bottom: 80px;
+	right: 80px;
 }
 
-#retornar:hover {
-	padding: 12px 24px;
+/* Media query para botão de fechar modal em telas menores */
+@media (max-width: 768px) {
+	.closeModal {
+		bottom: 15px;
+		right: 15px;
+	}
 }

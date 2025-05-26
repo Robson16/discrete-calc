@@ -26,6 +26,9 @@
 				<button class="actionButton" onclick="modal('poisson')">
 					Distribuição Poisson
 				</button>
+				<button class="actionButton" onclick="modal('probabilidade-binomial')">
+					Probabilidade Binomial
+				</button>
 				<button class="actionButton closeModal" onclick="closeModal()">
 					Voltar
 				</button>
@@ -40,8 +43,14 @@
 					<label for="numberP">Probabilidade de sucesso (p)</label>
 					<input type="number" value="0" id="numberP" name="numberP" min="0" max="1" step="0.01">
 
-					<label for="numberX">Número de sucessos desejados (x)</label>
-					<input type="number" value="0" id="numberX" name="numberX" min="0" step="1">
+					<label for="estatistica">Mostrar:</label>
+					<select id="estatistica">
+						<option value="todas">Todas</option>
+						<option value="media">Média</option>
+						<option value="variancia">Variância</option>
+						<option value="desvio">Desvio Padrão</option>
+						<option value="cv">Coeficiente de Variação</option>
+					</select>
 
 					<button type="submit">Calcular</button>
 
@@ -52,10 +61,11 @@
 						<p id="resultVar"></p>
 						<p id="resultD"></p>
 						<p id="resultCV"></p>
-						<p id="resultBinomial"></p>
 					</div>
 				</form>
 			</div>
+
+
 			<div id="poisson" class="modal">
 				<form onsubmit="calc('poisson')">
 					<h2 class="title">Distribuição Poisson</h2>
@@ -66,6 +76,24 @@
 					<label for="x1">Número de sucessos desejados (x)</label>
 					<input type="number" value="0" id="x1" name="x1" min="0" step="1">
 
+					<label for="expressaoPoisson">Calcular probabilidade para:</label>
+					<select id="expressaoPoisson">
+						<option value="igual" selected> = x </option>
+						<option value="maior"> > x </option>
+						<option value="menor"> x < </option>
+						<option value="maiorigual"> ≥ x </option>
+						<option value="menorigual"> ≤ x </option>
+						<option value="entre"> a ≤ x ≤ b </option>
+					</select>
+
+					<div id="poissonEntreInputs" style="display: none;">
+						<label for="poissonA">Valor mínimo (a)</label>
+						<input type="number" value="0" id="poissonA" name="poissonA" min="0" step="1">
+
+						<label for="poissonB">Valor máximo (b)</label>
+						<input type="number" value="0" id="poissonB" name="poissonB" min="0" step="1">
+					</div>
+
 					<button type="submit">Calcular</button>
 
 					<div class="result">
@@ -73,6 +101,46 @@
 					</div>
 				</form>
 			</div>
+
+
+			<div id="probabilidade-binomial" class="modal">
+				<form onsubmit="calc('probabilidade-binomial')">
+					<h2 class="title">Probabilidade Binomial</h2>
+
+					<label for="numberN2">Número de Tentativas (n)</label>
+					<input type="number" value="0" id="numberN2" name="numberN2" min="0" step="1">
+
+					<label for="numberP2">Probabilidade de sucesso (p)</label>
+					<input type="number" value="0" id="numberP2" name="numberP2" min="0" max="1" step="0.01">
+
+					<label for="numberX2">Número de sucessos desejados (x)</label>
+					<input type="number" value="0" id="numberX2" name="numberX2" min="0" step="1">
+
+					<label for="expressao">Mostrar:</label>
+					<select id="expressao">
+						<option value="igual" selected> = x </option>
+						<option value="maior"> > x </option>
+						<option value="menor"> x < </option>
+						<option value="maiorigual"> ≥ x </option>
+						<option value="menorigual"> x ≤ </option>
+						<option value="entre"> a ≤ x ≤ b </option>
+					</select>
+
+					<div id="entreInputs" style="display: none;">
+						<label for="numberA">Valor mínimo (a)</label>
+						<input type="number" value="0" id="numberA" name="numberA" min="0" step="1">
+
+						<label for="numberB">Valor máximo (b)</label>
+						<input type="number" value="0" id="numberB" name="numberB" min="0" step="1">
+					</div>
+
+					<button type="submit">Calcular</button>
+
+					<div class="result">
+						<p id="resultP2"></p>
+						<p id="resultQ2"></p>
+						<p id="resultProbBinomial2"></p>
+					</div>
 		</main>
 	</div>
 	<script src="./assets/js/main.js" defer></script>

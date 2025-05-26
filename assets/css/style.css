@@ -208,3 +208,25 @@ input[type="submit"]:active {
 		right: 15px;
 	}
 }
+
+#entreInputs {
+    width: 100%;
+    display: none;
+    gap: 0.8rem;
+}
+
+#entreInputs label {
+    color: var(--text-color);
+    margin-top: 0.5rem;
+}
+
+#poissonEntreInputs {
+    width: 100%;
+    display: none;
+    gap: 0.8rem;
+}
+
+#poissonEntreInputs label {
+    color: var(--text-color);
+    margin-top: 0.5rem;
+}

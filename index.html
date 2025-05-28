@@ -39,7 +39,7 @@
 				<form onsubmit="calculate('binomial')">
 					<h2 class="title">Distribuição Binomial</h2>
 
-					<label for="numberN">Número de Tentativas (n)</label>
+					<label for="numberN">Espaço Amostral (n)</label>
 					<input type="number" value="0" id="numberN" name="numberN" min="0" step="1">
 
 					<label for="numberP">Probabilidade de sucesso (p)</label>
@@ -57,8 +57,6 @@
 					<button type="submit">Calcular</button>
 
 					<div class="result">
-						<p id="resultP"></p>
-						<p id="resultQ"></p>
 						<p id="resultM"></p>
 						<p id="resultVar"></p>
 						<p id="resultD"></p>
@@ -83,8 +81,8 @@
 						<option value="igual" selected> = x </option>
 						<option value="maior"> > x </option>
 						<option value="menor"> x < </option>
-						<option value="maiorigual"> ≥ x </option>
-						<option value="menorigual"> ≤ x </option>
+						<option value="maiorIgual"> ≥ x </option>
+						<option value="menorIgual"> ≤ x </option>
 						<option value="entre"> a ≤ x ≤ b </option>
 					</select>
 
@@ -109,7 +107,7 @@
 				<form onsubmit="calculate('probabilidade-binomial')">
 					<h2 class="title">Probabilidade Binomial</h2>
 
-					<label for="numberN2">Número de Tentativas (n)</label>
+					<label for="numberN2">Espaço Amostral (n)</label>
 					<input type="number" value="0" id="numberN2" name="numberN2" min="0" step="1">
 
 					<label for="numberP2">Probabilidade de sucesso (p)</label>
@@ -123,8 +121,8 @@
 						<option value="igual" selected> = x </option>
 						<option value="maior"> > x </option>
 						<option value="menor"> x < </option>
-						<option value="maiorigual"> ≥ x </option>
-						<option value="menorigual"> x ≤ </option>
+						<option value="maiorIgual"> ≥ x </option>
+						<option value="menorIgual"> x ≤ </option>
 						<option value="entre"> a ≤ x ≤ b </option>
 					</select>
 
@@ -139,8 +137,6 @@
 					<button type="submit">Calcular</button>
 
 					<div class="result">
-						<p id="resultP2"></p>
-						<p id="resultQ2"></p>
 						<p id="resultProbBinomial2"></p>
 					</div>
 				</form>

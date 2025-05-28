@@ -57,10 +57,9 @@ function closeModal() {
 }
 
 
-// Função principal de cálculo para ambas as distribuições
-function calc(tipoCalculo) {
-    // Previne o recarregamento da página ao enviar o formulário
-    event.preventDefault();
+// Função principal de cálculo para as distribuições
+function calculate(calculationType) {
+    event.preventDefault(); // Previne o recarregamento da página
 
     if (tipoCalculo === 'binomial') {
         const n = parseFloat(document.getElementById('numberN').value);

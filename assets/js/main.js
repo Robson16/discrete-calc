@@ -10,15 +10,12 @@ document.getElementById('expressaoPoisson').addEventListener('change', function(
         this.value === 'entre' ? 'block' : 'none';
 });
 
-// Função para abrir e fechar modais
-function modal(tipoModal) {
-    // Esconde todos os modais primeiro
-    document.querySelectorAll('.modal').forEach(function (modalElement) {
+// Abre um modal específico e esconde os outros
+function openModal(modalId) {
+    // Esconde todos os modais e seus resultados
+    document.querySelectorAll('.modal').forEach(modalElement => {
         modalElement.style.display = 'none';
-
-        // Esconde a div de resultados ao trocar de modal para limpar a exibição
         const resultDiv = modalElement.querySelector('.result');
-
         if (resultDiv) {
             resultDiv.style.display = 'none';
         }

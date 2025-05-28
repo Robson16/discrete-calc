@@ -20,24 +20,26 @@
 
 		<main>
 			<div class="actions">
-				<button class="actionButton" onclick="modal('binomial')">
+				<button class="actionButton" onclick="openModal('binomial')">
 					Distribuição Binomial
 				</button>
-				<button class="actionButton" onclick="modal('poisson')">
+				<button class="actionButton" onclick="openModal('poisson')">
 					Distribuição Poisson
 				</button>
-				<button class="actionButton" onclick="modal('probabilidade-binomial')">
+				<button class="actionButton" onclick="openModal('probabilidade-binomial')">
 					Probabilidade Binomial
 				</button>
 				<button class="actionButton closeModal" onclick="closeModal()">
 					Voltar
 				</button>
 			</div>
+			<!-- /.actions -->
+
 			<div id="binomial" class="modal">
-				<form onsubmit="calc('binomial')">
+				<form onsubmit="calculate('binomial')">
 					<h2 class="title">Distribuição Binomial</h2>
 
-					<label for="numberN">Número de Tentativas (n)</label>
+					<label for="numberN">Espaço Amostral (n)</label>
 					<input type="number" value="0" id="numberN" name="numberN" min="0" step="1">
 
 					<label for="numberP">Probabilidade de sucesso (p)</label>
@@ -55,8 +57,6 @@
 					<button type="submit">Calcular</button>
 
 					<div class="result">
-						<p id="resultP"></p>
-						<p id="resultQ"></p>
 						<p id="resultM"></p>
 						<p id="resultVar"></p>
 						<p id="resultD"></p>
@@ -64,10 +64,10 @@
 					</div>
 				</form>
 			</div>
-
+			<!-- /.modal -->
 
 			<div id="poisson" class="modal">
-				<form onsubmit="calc('poisson')">
+				<form onsubmit="calculate('poisson')">
 					<h2 class="title">Distribuição Poisson</h2>
 
 					<label for="lambda">Taxa média de eventos (λ)</label>
@@ -81,12 +81,12 @@
 						<option value="igual" selected> = x </option>
 						<option value="maior"> > x </option>
 						<option value="menor"> x < </option>
-						<option value="maiorigual"> ≥ x </option>
-						<option value="menorigual"> ≤ x </option>
+						<option value="maiorIgual"> ≥ x </option>
+						<option value="menorIgual"> ≤ x </option>
 						<option value="entre"> a ≤ x ≤ b </option>
 					</select>
 
-					<div id="poissonEntreInputs" style="display: none;">
+					<div id="poissonEntreInputs" class="input-group-conditional" style="display: none;">
 						<label for="poissonA">Valor mínimo (a)</label>
 						<input type="number" value="0" id="poissonA" name="poissonA" min="0" step="1">
 
@@ -101,13 +101,13 @@
 					</div>
 				</form>
 			</div>
-
+			<!-- /.modal -->
 
 			<div id="probabilidade-binomial" class="modal">
-				<form onsubmit="calc('probabilidade-binomial')">
+				<form onsubmit="calculate('probabilidade-binomial')">
 					<h2 class="title">Probabilidade Binomial</h2>
 
-					<label for="numberN2">Número de Tentativas (n)</label>
+					<label for="numberN2">Espaço Amostral (n)</label>
 					<input type="number" value="0" id="numberN2" name="numberN2" min="0" step="1">
 
 					<label for="numberP2">Probabilidade de sucesso (p)</label>
@@ -121,12 +121,12 @@
 						<option value="igual" selected> = x </option>
 						<option value="maior"> > x </option>
 						<option value="menor"> x < </option>
-						<option value="maiorigual"> ≥ x </option>
-						<option value="menorigual"> x ≤ </option>
+						<option value="maiorIgual"> ≥ x </option>
+						<option value="menorIgual"> x ≤ </option>
 						<option value="entre"> a ≤ x ≤ b </option>
 					</select>
 
-					<div id="entreInputs" style="display: none;">
+					<div id="entreInputs" class="input-group-conditional" style="display: none;">
 						<label for="numberA">Valor mínimo (a)</label>
 						<input type="number" value="0" id="numberA" name="numberA" min="0" step="1">
 
@@ -137,12 +137,16 @@
 					<button type="submit">Calcular</button>
 
 					<div class="result">
-						<p id="resultP2"></p>
-						<p id="resultQ2"></p>
 						<p id="resultProbBinomial2"></p>
 					</div>
+				</form>
+			</div>
+			<!-- /.modal -->
+
 		</main>
 	</div>
+	<!-- /.container -->
+
 	<script src="./assets/js/main.js" defer></script>
 </body>
 

@@ -84,6 +84,9 @@
 						<option value="maiorIgual"> ≥ x </option>
 						<option value="menorIgual"> ≤ x </option>
 						<option value="entre"> a ≤ x ≤ b </option>
+						<option value="entreEstrito"> a < x < b </option>
+						<option value="entreExclusivoInferiorInclusivoSuperior">a < X ≤ b</option>
+						<option value="entreInclusivoInferiorExclusivoSuperior">a ≤ X < b</option>
 					</select>
 
 					<div id="poissonEntreInputs" class="input-group-conditional" style="display: none;">
@@ -116,14 +119,17 @@
 					<label for="numberX2">Número de sucessos desejados (x)</label>
 					<input type="number" value="0" id="numberX2" name="numberX2" min="0" step="1">
 
-					<label for="expressao">Mostrar:</label>
+					<label for="expressao">Calcular probabilidade para:</label>
 					<select id="expressao">
 						<option value="igual" selected> = x </option>
 						<option value="maior"> > x </option>
 						<option value="menor"> x < </option>
 						<option value="maiorIgual"> ≥ x </option>
 						<option value="menorIgual"> x ≤ </option>
-						<option value="entre"> a ≤ x ≤ b </option>
+						<option value="entre"> a ≤ X ≤ b </option>
+						<option value="entreEstrito"> a < X < b </option>
+						<option value="entreExclusivoInferiorInclusivoSuperior">a < X ≤ b</option>
+						<option value="entreInclusivoInferiorExclusivoSuperior">a ≤ X < b</option>
 					</select>
 
 					<div id="entreInputs" class="input-group-conditional" style="display: none;">

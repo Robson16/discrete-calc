@@ -33,7 +33,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const binomialBetweenInputs = document.getElementById('entreInputs');
     if (binomialExpressionSelect && binomialBetweenInputs) {
         binomialExpressionSelect.addEventListener('change', function () {
-            binomialBetweenInputs.style.display = this.value === 'entre' ? 'flex' : 'none';
+            binomialBetweenInputs.style.display = (
+                this.value === 'entre' ||
+                this.value === 'entreEstrito' ||
+                this.value === 'entreExclusivoInferiorInclusivoSuperior' ||
+                this.value === 'entreInclusivoInferiorExclusivoSuperior') ? 'flex' : 'none';
         });
         // Garante o estado inicial correto ao carregar a página
         binomialBetweenInputs.style.display = binomialExpressionSelect.value === 'entre' ? 'flex' : 'none';
@@ -42,12 +46,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // Para o modal de Distribuição Poisson
     const poissonExpressionSelect = document.getElementById('expressaoPoisson');
     const poissonBetweenInputs = document.getElementById('poissonEntreInputs');
+
     if (poissonExpressionSelect && poissonBetweenInputs) {
+        const showBetweenInputsValues = [
+            'entre',
+            'entreEstrito',
+            'entreExclusivoInferiorInclusivoSuperior',
+            'entreInclusivoInferiorExclusivoSuperior'
+        ];
+
         poissonExpressionSelect.addEventListener('change', function () {
-            poissonBetweenInputs.style.display = this.value === 'entre' ? 'flex' : 'none';
+            const show = showBetweenInputsValues.includes(this.value);
+            poissonBetweenInputs.style.display = show ? 'flex' : 'none';
         });
-        // Garante o estado inicial correto ao carregar a página
-        poissonBetweenInputs.style.display = poissonExpressionSelect.value === 'entre' ? 'flex' : 'none';
+
+        // Define o estado inicial na carga da página
+        poissonBetweenInputs.style.display = showBetweenInputsValues.includes(poissonExpressionSelect.value) ? 'flex' : 'none';
     }
 });
 
@@ -171,8 +185,9 @@ function calculate(calculationType) {
         let probability = 0;
         let resultMessage = '';
 
-        // Calcula a probabilidade de Poisson
+        // No switch dentro do 'poisson' em calculate()
         switch (expression) {
+
             case 'igual':
                 probability = calculatePoissonProbability(lambda, x);
                 resultMessage = `P(X = ${x}) = ${probability.toFixed(2)}%`;
@@ -205,13 +220,47 @@ function calculate(calculationType) {
                 }
                 resultMessage = `P(X ≤ ${x}) = ${probability.toFixed(2)}%`;
                 break;
+
             case 'entre': // P(a <= X <= b)
                 for (let k = Math.floor(a); k <= Math.floor(b); k++) {
                     probability += calculatePoissonProbability(lambda, k);
                 }
                 resultMessage = `P(${a} ≤ X ≤ ${b}) = ${probability.toFixed(2)}%`;
                 break;
+            case 'entreEstrito': // P(a < X < b)
+                for (let k = Math.floor(a) + 1; k < Math.floor(b); k++) {
+                    probability += calculatePoissonProbability(lambda, k);
+                }
+                resultMessage = `P(${a} < X < ${b}) = ${probability.toFixed(2)}%`;
+                break;
+            case 'entreExclusivoInferiorInclusivoSuperior': // P(a < X ≤ b)
+                let sumLessEqualB = 0;
+                for (let k = 0; k <= Math.floor(b); k++) {
+                    sumLessEqualB += calculatePoissonProbability(lambda, k);
+                }
+                let sumLessEqualA = 0;
+                for (let k = 0; k <= Math.floor(a); k++) {
+                    sumLessEqualA += calculatePoissonProbability(lambda, k);
+                }
+                probability = sumLessEqualB - sumLessEqualA;
+                resultMessage = `P(${a} < X ≤ ${b}) = ${probability.toFixed(2)}%`;
+                break;
+            case 'entreInclusivoInferiorExclusivoSuperior': // P(a ≤ X < b)
+                let sumLessEqualBMinus1 = 0;
+                for (let k = 0; k <= Math.floor(b) - 1; k++) {
+                    sumLessEqualBMinus1 += calculatePoissonProbability(lambda, k);
+                }
+                let sumLessEqualAMinus1 = 0;
+                for (let k = 0; k <= Math.floor(a) - 1; k++) {
+                    sumLessEqualAMinus1 += calculatePoissonProbability(lambda, k);
+                }
+                probability = sumLessEqualBMinus1 - sumLessEqualAMinus1;
+                resultMessage = `P(${a} ≤ X < ${b}) = ${probability.toFixed(2)}%`;
+                break;
+
         }
+
+
 
         document.getElementById('resultPoisson').innerHTML = resultMessage;
         document.querySelector('#poisson .result').style.display = 'block';
@@ -229,10 +278,27 @@ function calculate(calculationType) {
         let hasError = false;
         if (isNaN(n) || isNaN(p) || n < 0 || p < 0 || p > 1 || !Number.isInteger(n)) {
             hasError = true;
-        } else if (expression !== 'entre') {
-            if (isNaN(x) || x < 0 || x > n || !Number.isInteger(x)) hasError = true;
-        } else if (expression === 'entre') {
-            if (isNaN(a) || isNaN(b) || a < 0 || b < a || b > n || !Number.isInteger(a) || !Number.isInteger(b)) hasError = true;
+        } else if (
+            expression === 'entre' ||
+            expression === 'entreInclusivo' ||
+            expression === 'entreEstrito' ||
+            expression === 'entreExclusivoInferiorInclusivoSuperior' ||
+            expression === 'entreInclusivoInferiorExclusivoSuperior'
+        ) {
+            // Validação para todas as expressões de intervalo
+            if (isNaN(a) || isNaN(b) ||
+                a < 0 ||
+                b < a ||
+                b > n ||  // Adicionado limite superior
+                !Number.isInteger(a) ||
+                !Number.isInteger(b)) {
+                hasError = true;
+            }
+        } else {
+            // Validação para expressões não-intervalo
+            if (isNaN(x) || x < 0 || x > n || !Number.isInteger(x)) {
+                hasError = true;
+            }
         }
 
         if (hasError) {
@@ -245,6 +311,7 @@ function calculate(calculationType) {
 
         // Calcula a probabilidade binomial
         switch (expression) {
+
             case 'igual':
                 probability = calculateBinomialProbability(n, x, p);
                 resultMessage = `P(X = ${x}) = ${probability.toFixed(2)}%`;
@@ -277,16 +344,36 @@ function calculate(calculationType) {
                 }
                 resultMessage = `P(X ≤ ${x}) = ${probability.toFixed(2)}%`;
                 break;
+
             case 'entre': // P(a <= X <= b)
                 for (let k = Math.floor(a); k <= Math.floor(b); k++) {
                     probability += calculateBinomialProbability(n, k, p);
                 }
                 resultMessage = `P(${a} ≤ X ≤ ${b}) = ${probability.toFixed(2)}%`;
                 break;
+
+            case 'entreEstrito': // P(a < X < b)
+                for (let k = Math.floor(a) + 1; k < Math.floor(b); k++) {
+                    probability += calculateBinomialProbability(n, k, p);
+                }
+                resultMessage = `P(${a} < X < ${b}) = ${probability.toFixed(2)}%`;
+                break;
+
+            case 'entreExclusivoInferiorInclusivoSuperior': // P(a < X ≤ b)
+                for (let k = Math.floor(a) + 1; k <= Math.floor(b); k++) {
+                    probability += calculateBinomialProbability(n, k, p);
+                }
+                resultMessage = `P(${a} < X ≤ ${b}) = ${probability.toFixed(2)}%`;
+                break;
+
+            case 'entreInclusivoInferiorExclusivoSuperior': // P(a ≤ X < b)
+                for (let k = Math.floor(a); k < Math.floor(b); k++) {
+                    probability += calculateBinomialProbability(n, k, p);
+                }
+                resultMessage = `P(${a} ≤ X < ${b}) = ${probability.toFixed(2)}%`;
+                break;
         }
 
-        // Os resultados de p e q não são exibidos no modal de "Probabilidade Binomial" no seu HTML atual,
-        // mas se forem adicionados, você pode descomentar estas linhas.
         // document.getElementById('resultP2').innerHTML = `Probabilidade de sucesso (p): ${p.toFixed(2)}`;
         // document.getElementById('resultQ2').innerHTML = `Probabilidade de falha (q): ${q.toFixed(2)}`;
         document.getElementById('resultProbBinomial2').innerHTML = resultMessage;

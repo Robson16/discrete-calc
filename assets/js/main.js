@@ -187,7 +187,40 @@ function calculate(calculationType) {
 
         // No switch dentro do 'poisson' em calculate()
         switch (expression) {
-            // ... outros cases ...
+
+            case 'igual':
+                probability = calculatePoissonProbability(lambda, x);
+                resultMessage = `P(X = ${x}) = ${probability.toFixed(2)}%`;
+                break;
+            case 'maior': // P(X > x) = 1 - P(X <= x)
+                let sumLessEqual = 0;
+                for (let k = 0; k <= x; k++) {
+                    sumLessEqual += calculatePoissonProbability(lambda, k);
+                }
+                probability = 100 - sumLessEqual;
+                resultMessage = `P(X > ${x}) = ${probability.toFixed(2)}%`;
+                break;
+            case 'menor': // P(X < x) = P(X <= x-1)
+                for (let k = 0; k < x; k++) {
+                    probability += calculatePoissonProbability(lambda, k);
+                }
+                resultMessage = `P(X < ${x}) = ${probability.toFixed(2)}%`;
+                break;
+            case 'maiorIgual': // P(X >= x) = 1 - P(X < x)
+                let sumLess = 0;
+                for (let k = 0; k < x; k++) {
+                    sumLess += calculatePoissonProbability(lambda, k);
+                }
+                probability = 100 - sumLess;
+                resultMessage = `P(X ≥ ${x}) = ${probability.toFixed(2)}%`;
+                break;
+            case 'menorIgual': // P(X <= x)
+                for (let k = 0; k <= x; k++) {
+                    probability += calculatePoissonProbability(lambda, k);
+                }
+                resultMessage = `P(X ≤ ${x}) = ${probability.toFixed(2)}%`;
+                break;
+
             case 'entre': // P(a <= X <= b)
                 for (let k = Math.floor(a); k <= Math.floor(b); k++) {
                     probability += calculatePoissonProbability(lambda, k);
@@ -224,7 +257,7 @@ function calculate(calculationType) {
                 probability = sumLessEqualBMinus1 - sumLessEqualAMinus1;
                 resultMessage = `P(${a} ≤ X < ${b}) = ${probability.toFixed(2)}%`;
                 break;
-            // ... outros cases ...
+
         }
 
 
@@ -246,6 +279,7 @@ function calculate(calculationType) {
         if (isNaN(n) || isNaN(p) || n < 0 || p < 0 || p > 1 || !Number.isInteger(n)) {
             hasError = true;
         } else if (
+            expression === 'entre' ||
             expression === 'entreInclusivo' ||
             expression === 'entreEstrito' ||
             expression === 'entreExclusivoInferiorInclusivoSuperior' ||
@@ -277,6 +311,7 @@ function calculate(calculationType) {
 
         // Calcula a probabilidade binomial
         switch (expression) {
+
             case 'igual':
                 probability = calculateBinomialProbability(n, x, p);
                 resultMessage = `P(X = ${x}) = ${probability.toFixed(2)}%`;
@@ -309,6 +344,7 @@ function calculate(calculationType) {
                 }
                 resultMessage = `P(X ≤ ${x}) = ${probability.toFixed(2)}%`;
                 break;
+
             case 'entre': // P(a <= X <= b)
                 for (let k = Math.floor(a); k <= Math.floor(b); k++) {
                     probability += calculateBinomialProbability(n, k, p);
@@ -338,8 +374,6 @@ function calculate(calculationType) {
                 break;
         }
 
-        // Os resultados de p e q não são exibidos no modal de "Probabilidade Binomial" no seu HTML atual,
-        // mas se forem adicionados, você pode descomentar estas linhas.
         // document.getElementById('resultP2').innerHTML = `Probabilidade de sucesso (p): ${p.toFixed(2)}`;
         // document.getElementById('resultQ2').innerHTML = `Probabilidade de falha (q): ${q.toFixed(2)}`;
         document.getElementById('resultProbBinomial2').innerHTML = resultMessage;

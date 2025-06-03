@@ -181,6 +181,7 @@ input[type="submit"]:active {
 	background-repeat: no-repeat;
 	background-position: right 0.875rem center;
 	background-size: 1.2rem;
+	font-family: var(--font-family);
 }
 
 .modal form select:focus {
@@ -224,6 +225,7 @@ input[type="submit"]:active {
 	position: fixed;
 	bottom: 80px;
 	right: 80px;
+	display: none;
 }
 
 /* Media query para botão de fechar modal em telas menores */

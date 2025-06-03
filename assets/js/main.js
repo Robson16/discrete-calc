@@ -110,6 +110,12 @@ function closeModal() {
 function calculate(calculationType) {
     event.preventDefault(); // Previne o recarregamento da página
 
+	//Função para realizar os cálculos com 2 dígitos decimais
+    function round2(number1) {
+        return Math.round(number1 * 100) / 100;
+    }
+    
+
     // Lógica para o modal de Estatísticas Binomiais
     if (calculationType === 'binomial') {
         const n = parseFloat(document.getElementById('numberN').value);
@@ -122,11 +128,11 @@ function calculate(calculationType) {
             return;
         }
 
-        const q = 1 - p;
-        const mean = n * p;
-        const variance = n * p * q;
-        const standardDeviation = Math.sqrt(variance);
-        const cv = (mean === 0) ? 0 : (100 * standardDeviation / mean);
+        const q = round2(1 - p);
+        const mean = round2(n * p);
+        const variance = round2(n * p * q);
+        const standardDeviation = round2(Math.sqrt(variance));
+        const cv = (mean === 0) ? 0 : round2((100 * standardDeviation / mean));
 
         // Limpa e esconde todos os resultados antes de exibir os selecionados
         const resultParagraphs = document.querySelectorAll('#binomial .result p');
@@ -137,22 +143,22 @@ function calculate(calculationType) {
 
         // Exibe os resultados baseados na seleção
         if (statistic === 'todas') {
-            document.getElementById('resultM').innerHTML = "A média (μ) é: " + mean.toFixed(2);
-            document.getElementById('resultVar').innerHTML = "A variância (σ²) é: " + variance.toFixed(2);
-            document.getElementById('resultD').innerHTML = "O desvio padrão (σ) é: " + standardDeviation.toFixed(2);
-            document.getElementById('resultCV').innerHTML = "O coeficiente de variação (CV) é: " + cv.toFixed(2) + "%";
+            document.getElementById('resultM').innerHTML = "A média (μ) é: " + mean;
+            document.getElementById('resultVar').innerHTML = "A variância (σ²) é: " + variance;
+            document.getElementById('resultD').innerHTML = "O desvio padrão (σ) é: " + standardDeviation;
+            document.getElementById('resultCV').innerHTML = "O coeficiente de variação (CV) é: " + cv + "%";
             resultParagraphs.forEach(pElement => pElement.style.display = 'block'); // Mostra todos
         } else if (statistic === 'media') {
-            document.getElementById('resultM').innerHTML = "A média (μ) é: " + mean.toFixed(2);
+            document.getElementById('resultM').innerHTML = "A média (μ) é: " + mean;
             document.getElementById('resultM').style.display = 'block';
         } else if (statistic === 'variancia') {
-            document.getElementById('resultVar').innerHTML = "A variância (σ²) é: " + variance.toFixed(2);
+            document.getElementById('resultVar').innerHTML = "A variância (σ²) é: " + variance;
             document.getElementById('resultVar').style.display = 'block';
         } else if (statistic === 'desvio') {
-            document.getElementById('resultD').innerHTML = "O desvio padrão (σ) é: " + standardDeviation.toFixed(2);
+            document.getElementById('resultD').innerHTML = "O desvio padrão (σ) é: " + standardDeviation;
             document.getElementById('resultD').style.display = 'block';
         } else if (statistic === 'cv') {
-            document.getElementById('resultCV').innerHTML = "O coeficiente de variação (CV) é: " + cv.toFixed(2) + "%";
+            document.getElementById('resultCV').innerHTML = "O coeficiente de variação (CV) é: " + cv + "%";
             document.getElementById('resultCV').style.display = 'block';
         }
 
